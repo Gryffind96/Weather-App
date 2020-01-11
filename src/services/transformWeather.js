@@ -1,5 +1,10 @@
 import {
-    SUN
+    SUN,
+    CLOUD,
+    RAIN,
+    SNOW,
+    THUNDER,
+    DRIZZLE,
 } from '../constants/weathers';
 import convert from 'convert-units';
 
@@ -8,8 +13,21 @@ const getTemp = kelvin => {
     return Number(convert(kelvin).from("K").to("C").toFixed(2));
 }
 
-const getWeatherState = weather_data => {
-    return SUN;
+const getWeatherState = weather => {
+    const {id} = weather;
+    if(id < 300){
+        return THUNDER;
+    }else if (id < 400) {
+        return DRIZZLE;
+    }else if (id < 600){
+        return RAIN;
+    }else if (id < 700){
+        return SNOW;
+    }else if (id === 800){
+        return SUN;
+    }else {
+        return CLOUD;
+    }
 }
 
 const transformWeather = weather_data => {

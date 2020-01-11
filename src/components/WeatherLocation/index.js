@@ -1,14 +1,11 @@
 import React,{Component} from 'react';
+import { PropTypes } from 'prop-types';
+import './styles.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Location from './Location';
 import WeatherData from './WeatherData';
 import transformWeather from '../../services/transformWeather';
 
-import './styles.css';
-
-
-
-import { PropTypes } from 'prop-types';
 import getUrlWeatherByCity from '../../services/getUrlWeatherByCity';
 
 
@@ -25,12 +22,10 @@ class WeatherLocation extends Component{
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
         this.handleUpdateClick();
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("componentDidUpdate");
        
     }
   
@@ -41,7 +36,6 @@ class WeatherLocation extends Component{
             return resolve.json();
         }).then(data=>{
             const newWeather = transformWeather(data);
-            console.log(newWeather);
             this.setState({
                 data:newWeather
             });
@@ -52,17 +46,17 @@ class WeatherLocation extends Component{
 
     render(){
 
+        const {onWeatherLocationClick} = this.props;
         const {city,data} = this.state;
-
         return (
-            <div className="weatherLocationCont">
+            <div className="weatherLocationCont" onClick={onWeatherLocationClick}>
                 <Location city={city} ></Location>
                 { data ? 
                     <WeatherData data={data}></WeatherData>
                     : <CircularProgress size={50} />
                 }
                 
-                <button onClick={this.handleUpdateClick}>Actualizar</button>
+                {/* <button onClick={this.handleUpdateClick}>Actualizar</button> */}
             </div>
         );
     }
@@ -70,6 +64,7 @@ class WeatherLocation extends Component{
 
 WeatherLocation.propTypes = {
     city: PropTypes.string.isRequired,
+    onWeatherLocationClick: PropTypes.func,
 }
 
 export default WeatherLocation;
