@@ -10,20 +10,21 @@ import convert from 'convert-units';
 
 
 const getTemp = kelvin => {
-    return Number(convert(kelvin).from("K").to("C").toFixed(2));
+    return Number(convert(kelvin).from("K").to("C").toFixed(0));
 }
 
 const getWeatherState = weather => {
     const {id} = weather;
+    console.log('Me esta llegando id',id);
     if(id < 300){
         return THUNDER;
-    }else if (id < 400) {
+    }else if (id < 4000000) {
         return DRIZZLE;
-    }else if (id < 600){
+    }else if (id < 6000000){
         return RAIN;
-    }else if (id < 700){
+    }else if (id < 7000000){
         return SNOW;
-    }else if (id === 800){
+    }else if (id === 8000000){
         return SUN;
     }else {
         return CLOUD;
