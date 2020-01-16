@@ -15,7 +15,6 @@ const getTemp = kelvin => {
 
 const getWeatherState = weather => {
     const {id} = weather;
-    console.log('Me esta llegando id',id);
     if(id < 300){
         return THUNDER;
     }else if (id < 4000000) {

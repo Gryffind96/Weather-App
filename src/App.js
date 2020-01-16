@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import ToolBar from '@material-ui/core/Toolbar';
+import ForecastExtended from './components/ForecastExtended';
 const cities = [
   'Barranquilla,co',
   'Medellin,co',
@@ -23,12 +24,23 @@ const cities = [
 
 class App extends Component {
 
+constructor(){
+  super();
+
+  this.state = {
+    city: null
+  };
+
+}
 
   handleSelectedLocation = city =>{
-    console.log("handleSelectionLocation  "+ city);
+    //console.log("handleSelectionLocation  "+ city);
+    this.setState({city});
+
   };
 
   render(){
+    const {city} = this.state;
     return (
       <MuiThemeProvider>
         <Grid >
@@ -51,7 +63,10 @@ class App extends Component {
             <Col xs={12} sm={6} md={6}>
               <Paper elevation={4}>
                 <div className="details">
-
+                  {!city ? 
+                  null
+                  :<ForecastExtended city={city} />}
+                    
                 </div>
               </Paper>
             </Col>
