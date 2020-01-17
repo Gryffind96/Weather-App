@@ -1,13 +1,15 @@
 import React,{Component} from 'react';
-import LocationList from './components/LocationList';
-import './App.css';
 import { Grid, Row,Col } from 'react-flexbox-grid';
 import { MuiThemeProvider } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import ToolBar from '@material-ui/core/Toolbar';
-import ForecastExtended from './components/ForecastExtended';
+import LocationListContainer from './containers/LocationListContainer';
+import ForecastExtendedContainer from './containers/ForecastExtendedContainer';
+
+import './App.css';
+
 const cities = [
   'Barranquilla,co',
   'Medellin,co',
@@ -22,25 +24,12 @@ const cities = [
   'Lima,pe'
 ];
 
+
+//const componentConnected = connect(null,mapDispatchToPropsActions)()
 class App extends Component {
 
-constructor(){
-  super();
-
-  this.state = {
-    city: null
-  };
-
-}
-
-  handleSelectedLocation = city =>{
-    //console.log("handleSelectionLocation  "+ city);
-    this.setState({city});
-
-  };
-
   render(){
-    const {city} = this.state;
+   
     return (
       <MuiThemeProvider>
         <Grid >
@@ -56,17 +45,13 @@ constructor(){
           
           <Row>
             <Col xs={12} sm={6} md={6}>
-                <LocationList 
-                cities={cities} 
-                onSelectedLocation={this.handleSelectedLocation}/>
+                <LocationListContainer 
+                cities={cities} />
             </Col>
             <Col xs={12} sm={6} md={6}>
               <Paper elevation={4}>
                 <div className="details">
-                  {!city ? 
-                  null
-                  :<ForecastExtended city={city} />}
-                    
+                   <ForecastExtendedContainer />
                 </div>
               </Paper>
             </Col>
